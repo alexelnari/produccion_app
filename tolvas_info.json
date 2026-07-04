@@ -1,0 +1,549 @@
+{
+  "3641": {
+    "articulo": 3641,
+    "tolvas": [
+      "Rejo",
+      "Rejo",
+      "Rejo",
+      "Rejo",
+      "Rejo",
+      "Rejo",
+      "Rejo",
+      "Rejo"
+    ],
+    "porcentaje": "",
+    "descripcion": "REJO 6*1 FROZZENBOX",
+    "pesos": "6"
+  },
+  "6229": {
+    "articulo": 6229,
+    "tolvas": [
+      "Cebollita",
+      "Mejillon",
+      "Rejo",
+      "Gamba",
+      "Surimi",
+      "Pim. Verde",
+      "",
+      "Pim. Rojo"
+    ],
+    "porcentaje": "",
+    "descripcion": "SALPICON MAR. 6*1 Kg",
+    "pesos": "",
+    "kilos_caja": "6",
+    "tipo_caja": "Ancavico Negra 6 Kg",
+    "tipo_plastico": "Bob. Ancavico",
+    "precinto": "Precinto Transparente",
+    "ultima_edicion": "19/04/2026 13:23"
+  },
+  "6231": {
+    "articulo": 6231,
+    "tolvas": [
+      "Cebolla",
+      "",
+      "Rejo P",
+      "Mejillon",
+      "Pimiento Verde",
+      "Surimi",
+      "",
+      "Tomate"
+    ],
+    "porcentaje": "",
+    "descripcion": "SALPICON MAR EC. 6*1 Kg",
+    "pesos": "",
+    "kilos_caja": "6",
+    "tipo_caja": "Blancas 6 Kg",
+    "tipo_plastico": "Bob. Transparente",
+    "precinto": "Precinto Transparente",
+    "ultima_edicion": "19/04/2026 13:25"
+  },
+  "6232": {
+    "articulo": 6232,
+    "tolvas": [
+      "Mej. \"M\";\"P\"",
+      "Rejo/Cab. De Pulpo",
+      "Cebollita",
+      "Gamba",
+      "Surimi",
+      "Pim. Verde",
+      "",
+      "Pim. Rojo"
+    ],
+    "porcentaje": "",
+    "descripcion": "SALPICON MAR. EXTRA 1*5 Kg",
+    "pesos": "5"
+  },
+  "6233": {
+    "articulo": 6233,
+    "tolvas": [
+      "Mej. Roto",
+      "Surimi",
+      "Rejo",
+      "Gamba",
+      "Pimiento Rojo",
+      "Pim. Verde",
+      "",
+      "Cebollita"
+    ],
+    "porcentaje": "",
+    "descripcion": "SALPICON MARISCO 6*1 Kg",
+    "pesos": "6"
+  },
+  "6243": {
+    "articulo": 6243,
+    "tolvas": [
+      "Marzoquita",
+      "Surimi",
+      "Papaya",
+      "Gamba",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "porcentaje": "",
+    "descripcion": "ENSALADA FANTASIA 3*1 kg",
+    "pesos": "3"
+  },
+  "6244": {
+    "articulo": 6244,
+    "tolvas": [
+      "Mazorquita",
+      "Surimi",
+      "Papaya",
+      "Gamba/Langostino",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "porcentaje": "",
+    "descripcion": "ENSALADA FANTASIA 1*5 Kg",
+    "pesos": "5"
+  },
+  "6247": {
+    "articulo": 6247,
+    "tolvas": [
+      "Surimi",
+      "Mejillon",
+      "Rejo",
+      "Langostino/Gamba",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "porcentaje": "",
+    "descripcion": "SALPICON SIN VERD 6*1 Kg",
+    "pesos": "6"
+  },
+  "6254": {
+    "articulo": 6254,
+    "tolvas": [
+      "",
+      "Mej. P",
+      "Rejo",
+      "Gamba",
+      "Calamar",
+      "Botones",
+      "Surimi",
+      ""
+    ],
+    "porcentaje": "100",
+    "descripcion": "",
+    "pesos": ""
+  },
+  "6273": {
+    "articulo": 6273,
+    "tolvas": [
+      "Mej. \"M\"",
+      "Rejo",
+      "Cebollita",
+      "Langostino",
+      "Surimi",
+      "Pim. Verde",
+      "Pim. Rojo",
+      ""
+    ],
+    "porcentaje": "1 Kg",
+    "descripcion": "",
+    "pesos": ""
+  },
+  "6275": {
+    "articulo": 6275,
+    "tolvas": [
+      "Cigala",
+      "Almeja",
+      "Gamba Grecia",
+      "Gamba",
+      "Mej. Entero",
+      "Taquitos",
+      "Mejillon P",
+      "Anilla"
+    ],
+    "porcentaje": "100",
+    "descripcion": "",
+    "pesos": ""
+  },
+  "6430": {
+    "articulo": 6430,
+    "tolvas": [
+      "Stick",
+      "Gamba",
+      "Mejillon",
+      "Anilla",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "porcentaje": "",
+    "descripcion": "FRUTOS DE MAR 2*3 Kg",
+    "pesos": "6"
+  },
+  "6438": {
+    "articulo": 6438,
+    "tolvas": [
+      "Mejillon",
+      "",
+      "Anilla",
+      "Gamba",
+      "Taquitos",
+      "stick",
+      "",
+      ""
+    ],
+    "porcentaje": "",
+    "descripcion": "FRUTOS DE MAR EC. 2*3 Kg",
+    "pesos": "6"
+  },
+  "6440": {
+    "articulo": 6440,
+    "tolvas": [
+      "Chirla",
+      "",
+      "cigala",
+      "Gamba",
+      "Taquitos",
+      "Anilla",
+      "",
+      "Mej. Entero"
+    ],
+    "porcentaje": "",
+    "descripcion": "5 kg",
+    "pesos": "5"
+  },
+  "6637": {
+    "articulo": 6637,
+    "tolvas": [
+      "",
+      "Almeja",
+      "Mej. Roto",
+      "Camaron",
+      "Taquitos",
+      "",
+      "Cab. Pulpo",
+      "Mej. Entero"
+    ],
+    "porcentaje": "",
+    "descripcion": "PREPARADO DE PAELLA 6*1 Kg",
+    "pesos": "6"
+  },
+  "6639": {
+    "articulo": 6639,
+    "tolvas": [
+      "Mejillon Entero",
+      "Almeja",
+      "Gamba / Langostino",
+      "",
+      "Taquitos",
+      "Cab de Pulpo",
+      "",
+      ""
+    ],
+    "porcentaje": "",
+    "descripcion": "PREPARADO PAELLA 2*3 Kg",
+    "pesos": "",
+    "kilos_caja": "6",
+    "tipo_caja": "Ancavico Blanca 6 Kg",
+    "tipo_plastico": "Bob. Ancavico",
+    "precinto": "Precinto Transparente",
+    "ultima_edicion": "19/04/2026 13:18"
+  },
+  "6641": {
+    "articulo": 6641,
+    "tolvas": [
+      "",
+      "Almeja",
+      "Camaron",
+      "Mej. Roto",
+      "Taquitos",
+      "Taquitos",
+      "Cab. Pulpo",
+      "Mej. Entero"
+    ],
+    "porcentaje": "100",
+    "descripcion": "",
+    "pesos": ""
+  },
+  "6643": {
+    "articulo": 6643,
+    "tolvas": [
+      "Mejillon",
+      "Carne almeja",
+      "",
+      "Gamba",
+      "Anilla",
+      "",
+      "",
+      "Almeja"
+    ],
+    "porcentaje": "",
+    "descripcion": "SOPA DE MARISCO EXTRA 1*5 kg",
+    "pesos": "",
+    "kilos_caja": "5",
+    "tipo_caja": "Sopa 5 Kg",
+    "tipo_plastico": "Plastico a Granel",
+    "precinto": "Precinto Transparente",
+    "ultima_edicion": "19/04/2026 13:20"
+  },
+  "6645": {
+    "articulo": 6645,
+    "tolvas": [
+      "Mejillon",
+      "Carne almeja",
+      "",
+      "Gamba",
+      "Anilla",
+      "",
+      "",
+      ""
+    ],
+    "porcentaje": "",
+    "descripcion": "SOPA DE MARISCO EXTRA 1*6 kg",
+    "pesos": "6"
+  },
+  "6647": {
+    "articulo": 6647,
+    "tolvas": [
+      "cigala",
+      "Chirla",
+      "Gamba grecia",
+      "Gamba/Mejillon P",
+      "Taquitos",
+      "Taquitos",
+      "Anilla",
+      "Mejillon E"
+    ],
+    "porcentaje": "",
+    "descripcion": "PAELLA MARISCO EXTRA 6*1 Kg",
+    "pesos": "6"
+  },
+  "6648": {
+    "articulo": 6648,
+    "tolvas": [
+      "Mejillon",
+      "Carne almeja",
+      "",
+      "Gamba",
+      "Almejas",
+      "",
+      "",
+      "Anilla"
+    ],
+    "porcentaje": "",
+    "descripcion": "12*400",
+    "pesos": ""
+  },
+  "6675": {
+    "articulo": 6675,
+    "tolvas": [
+      "Mejillon Entero",
+      "Almeja",
+      "Gamba",
+      "",
+      "Taquitos",
+      "Cabeza de pulpo",
+      "",
+      ""
+    ],
+    "porcentaje": "",
+    "descripcion": "PREPARADO PAELLA 3*1 Kg",
+    "pesos": "3"
+  },
+  "6786": {
+    "articulo": 6786,
+    "tolvas": [
+      "Carne de Almeja",
+      "",
+      "",
+      "Gamba",
+      "Mejillon",
+      "rejo",
+      "",
+      "Calamar"
+    ],
+    "porcentaje": "",
+    "descripcion": "PREPARDO RISOTTI 5*1 Kg",
+    "pesos": "5"
+  },
+  "6800": {
+    "articulo": 6800,
+    "tolvas": [
+      "Stick",
+      "Gamba",
+      "Mejillon",
+      "Anilla",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "porcentaje": "",
+    "descripcion": "FRUTOS MAR 6*1 Kg",
+    "pesos": "",
+    "kilos_caja": "6",
+    "tipo_caja": "Ancavico Negra 6 Kg",
+    "tipo_plastico": "Bob. Ancavico",
+    "precinto": "Precinto Transparente",
+    "ultima_edicion": "19/04/2026 13:26"
+  },
+  "6996": {
+    "articulo": 6996,
+    "tolvas": [
+      "",
+      "Almeja",
+      "Calamar",
+      "Camaron",
+      "Mej. P",
+      "Mej. P",
+      "Mej. Entero",
+      "Mej. Entero"
+    ],
+    "porcentaje": "",
+    "descripcion": "PREPARATO MISTO 5*1 Kg",
+    "pesos": "5"
+  },
+  "7003": {
+    "articulo": 7003,
+    "tolvas": [
+      "Mejillon",
+      "",
+      "Gamba",
+      "Carn. Almeja",
+      "Taquitos",
+      "",
+      "",
+      "Anilla"
+    ],
+    "porcentaje": "",
+    "descripcion": "SOPA 1*6 NUDISCO",
+    "pesos": "",
+    "kilos_caja": "6",
+    "tipo_caja": "Ancavico Negra 6 Kg",
+    "tipo_plastico": "Plastico a Granel",
+    "precinto": "Precinto Transparente",
+    "ultima_edicion": "19/04/2026 13:28"
+  },
+  "7004": {
+    "articulo": 7004,
+    "tolvas": [
+      "Rape",
+      "Pota",
+      "",
+      "Gamba",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "porcentaje": "",
+    "descripcion": "PREPARADO SOPAS/C 6*1 Kg",
+    "pesos": "",
+    "kilos_caja": "6",
+    "tipo_caja": "Ancavico Negra 6 Kg",
+    "tipo_plastico": "Bob. Ancavico",
+    "precinto": "Precinto Transparente",
+    "ultima_edicion": "19/04/2026 13:29"
+  },
+  "7007": {
+    "articulo": 7007,
+    "tolvas": [
+      "Stick",
+      "Anilla",
+      "Gamba",
+      "Mejillon",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "porcentaje": "",
+    "descripcion": "FRUTOS MAR 3*1 Kg TOPGEL",
+    "pesos": "3"
+  },
+  "93513": {
+    "articulo": 93513,
+    "tolvas": [
+      "Rejo",
+      "Rejo",
+      "Rejo",
+      "Rejo",
+      "Rejo",
+      "Rejo",
+      "Rejo",
+      ""
+    ],
+    "porcentaje": "",
+    "descripcion": "USA REJO 10*1 Lb",
+    "pesos": "",
+    "kilos_caja": "4.54",
+    "tipo_caja": "Ancavico Negra 6 Kg",
+    "tipo_plastico": "Bob. Ancavico",
+    "precinto": "Precinto Azul",
+    "ultima_edicion": "19/04/2026 13:30"
+  },
+  "3510": {
+    "articulo": 3510,
+    "tolvas": [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "porcentaje": "",
+    "descripcion": "REJO ANCAVICO 6*1Kg",
+    "pesos": "",
+    "kilos_caja": "6",
+    "tipo_caja": "Ancavico Negra 6 Kg",
+    "tipo_plastico": "Bob. Rejo",
+    "precinto": "Precinto Transparente",
+    "ultima_edicion": "19/04/2026 13:22"
+  },
+  "9041": {
+    "articulo": 9041,
+    "tolvas": [
+      "Mej. Entero",
+      "anilla",
+      "gamba",
+      "vieira",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "porcentaje": "",
+    "descripcion": "USA MARTINEZ 5*2 Lb",
+    "pesos": "",
+    "kilos_caja": "4.54",
+    "tipo_caja": "Blancas 6 Kg",
+    "tipo_plastico": "Bob. Martinez",
+    "precinto": "Precinto Transparente",
+    "detalle_fabricacion": "vibradores a 200 / bolsas tamaño 316 / temperatura 2026 /",
+    "ultima_edicion": "21/04/2026 21:19"
+  }
+}

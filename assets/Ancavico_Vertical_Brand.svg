@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Ancavico Vertical Brand</title>
+  <desc id="desc">Logo de app inspirado en los colores y letras del logo Ancavico</desc>
+  <defs>
+    <linearGradient id="orange" x1="52" y1="88" x2="456" y2="220" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#e58d20"/>
+      <stop offset="1" stop-color="#f5b247"/>
+    </linearGradient>
+    <linearGradient id="green" x1="92" y1="316" x2="420" y2="424" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#52645d"/>
+      <stop offset="1" stop-color="#7c8b80"/>
+    </linearGradient>
+    <linearGradient id="vLine" x1="256" y1="112" x2="256" y2="392" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f7b045"/>
+      <stop offset="1" stop-color="#d87a19"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="#f2f4ed"/>
+  <rect x="50" y="58" width="412" height="396" rx="104" fill="#ffffff"/>
+  <path d="M82 178c56-82 218-120 350-48" fill="none" stroke="url(#orange)" stroke-width="40" stroke-linecap="round"/>
+  <path d="M78 350c72 48 248 72 356-32" fill="none" stroke="url(#green)" stroke-width="34" stroke-linecap="round"/>
+  <path d="M132 238c86-66 236-70 308-2" fill="none" stroke="#e58d20" stroke-width="18" stroke-linecap="round" opacity=".95"/>
+  <path d="M176 160h64l34 112 34-112h64l-64 214h-68L176 160z" fill="#63746b"/>
+  <path d="M256 124v244" stroke="url(#vLine)" stroke-width="18" stroke-linecap="round"/>
+  <circle cx="256" cy="124" r="22" fill="#f2a13a"/>
+  <circle cx="256" cy="368" r="22" fill="#d87a19"/>
+  <text x="256" y="292" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="70" font-weight="700" fill="#426075" letter-spacing="-4">ancavico</text>
+  <text x="256" y="338" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="26" font-weight="700" fill="#202020">Mediterranean Food</text>
+</svg>

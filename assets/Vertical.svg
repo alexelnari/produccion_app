@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Vertical</title>
+  <desc id="desc">Logo industrial para Ancavico Produccion Vertical</desc>
+  <defs>
+    <linearGradient id="bg" x1="92" y1="40" x2="420" y2="472" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0f3f35"/>
+      <stop offset="0.55" stop-color="#1f6b55"/>
+      <stop offset="1" stop-color="#d9862a"/>
+    </linearGradient>
+    <linearGradient id="metal" x1="130" y1="96" x2="382" y2="416" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="0.45" stop-color="#e9f2ec"/>
+      <stop offset="1" stop-color="#b9c9bf"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="#eef3ea"/>
+  <rect x="42" y="42" width="428" height="428" rx="96" fill="url(#bg)"/>
+  <path d="M160 110h70l54 180 54-180h70L316 402h-64L160 110z" fill="url(#metal)"/>
+  <path d="M164 110h64l56 180 56-180h64l-88 292h-62L164 110z" fill="none" stroke="#ffffff" stroke-opacity=".35" stroke-width="10" stroke-linejoin="round"/>
+  <path d="M256 98v316" stroke="#f2a13a" stroke-width="18" stroke-linecap="round" opacity=".95"/>
+  <circle cx="256" cy="98" r="22" fill="#f2a13a"/>
+  <circle cx="256" cy="414" r="22" fill="#f2a13a"/>
+  <path d="M126 356h260" stroke="#ffffff" stroke-width="22" stroke-linecap="round" opacity=".18"/>
+  <path d="M136 384h240" stroke="#172017" stroke-width="10" stroke-linecap="round" opacity=".3"/>
+</svg>

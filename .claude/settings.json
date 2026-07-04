@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(start \"\" \"c:\\\\Users\\\\Alex\\\\source\\\\repos\\\\produccion_app\\\\produccion_app.slnx\")",
+      "Bash(python -c \"import customtkinter\")",
+      "Bash(where python *)",
+      "Bash(where py *)",
+      "Read(//c/Users/Alex/AppData/Local/Programs/**)",
+      "Read(//c/Program Files/**)",
+      "Read(//c/Users/Alex/AppData/Local/Microsoft/WindowsApps/**)",
+      "Bash(\"/c/Users/Alex/AppData/Local/Microsoft/WindowsApps/pythonw.exe\" main.py)",
+      "Bash(echo \"lanzado, pid: $!\")",
+      "Bash(tasklist)",
+      "Bash(wmic process *)",
+      "Read(//tmp/**)",
+      "Bash(/c/Windows/System32/tasklist.exe)",
+      "Bash(python -m py_compile scripts/generar_iconos.py)",
+      "Bash(python scripts/generar_iconos.py)"
+    ]
+  }
+}

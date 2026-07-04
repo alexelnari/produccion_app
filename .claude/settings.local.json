@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -la \"c:/Users/Alex/source/repos/produccion_app\" 2>&1 | head -50)",
+      "Read(//c/Users/Alex/source/repos/produccion_app/**)",
+      "Bash(cmd /c \"Ejecutar_Ancavico.bat\")",
+      "Bash(code --version)",
+      "Read(//c/Users/Alex/AppData/Local/Programs/Microsoft VS Code/bin/**)",
+      "Read(//c/Program Files/Microsoft VS Code/**)",
+      "Bash(\"/c/Users/Alex/AppData/Local/Programs/Microsoft VS Code/bin/code.cmd\" \"c:/Users/Alex/source/repos/produccion_app/produccion_app\")",
+      "Bash(\"/c/Users/Alex/AppData/Local/Programs/Microsoft VS Code/bin/code.cmd\" -r \"c:/Users/Alex/source/repos/produccion_app/produccion_app/ui/principal.py\")"
+    ]
+  }
+}

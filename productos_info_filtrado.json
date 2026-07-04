@@ -1,0 +1,541 @@
+{
+  "1120": {
+    "codigo": 1120,
+    "descripcion": "PULPO CASTELLAR  10*500 Gr",
+    "factor": 5,
+    "tolvas": [],
+    "fila_origen": 2
+  },
+  "3510": {
+    "codigo": 3510,
+    "descripcion": "REJO ANCAVICO 6*1Kg",
+    "factor": 6,
+    "tolvas": [],
+    "fila_origen": 3
+  },
+  "3511": {
+    "codigo": 3511,
+    "descripcion": "PULPO TROC.  6*1 Kg",
+    "factor": 6,
+    "tolvas": [],
+    "fila_origen": 4
+  },
+  "3546": {
+    "codigo": 3546,
+    "descripcion": "REJO TOP GEL 10% 6*500 Gr",
+    "factor": 3,
+    "tolvas": [],
+    "fila_origen": 5
+  },
+  "3555": {
+    "codigo": 3555,
+    "descripcion": "REJO COC. TROC. 3*1 Kg",
+    "factor": 3,
+    "tolvas": [],
+    "fila_origen": 6
+  },
+  "3641": {
+    "codigo": 3641,
+    "descripcion": "REJO 6*1 FROZZENBOX",
+    "factor": 6,
+    "tolvas": [
+      "Rejo",
+      "Rejo",
+      "Rejo",
+      "Rejo",
+      "Rejo",
+      "Rejo",
+      "Rejo",
+      "Rejo"
+    ],
+    "fila_origen": 7
+  },
+  "6229": {
+    "codigo": 6229,
+    "descripcion": "SALPICON MAR. 6*1 Kg",
+    "factor": 6,
+    "tolvas": [
+      "Cebollia",
+      "Mejillon",
+      "Rejo",
+      "Gamba",
+      "Surimi",
+      "Pim. Verde",
+      "Pim. Rojo"
+    ],
+    "fila_origen": 8
+  },
+  "6231": {
+    "codigo": 6231,
+    "descripcion": "SALPICON MAR EC. 6*1 Kg",
+    "factor": 6,
+    "tolvas": [
+      "Cebolla",
+      "Rejo P",
+      "Mejillon",
+      "Pimiento Verde",
+      "surimi",
+      "Tomate"
+    ],
+    "fila_origen": 9
+  },
+  "6232": {
+    "codigo": 6232,
+    "descripcion": "SALPICON MAR. EXTRA 1*5 Kg",
+    "factor": 5,
+    "tolvas": [
+      "Mej. \"M\",\"P\"",
+      "Rejo/Cab. De Pulpo",
+      "Cebollita",
+      "Gamba",
+      "Surimi",
+      "Pim. Verde",
+      "Pim. Rojo"
+    ],
+    "fila_origen": 10
+  },
+  "6233": {
+    "codigo": 6233,
+    "descripcion": "SALPICON MARISCO 6*1 Kg",
+    "factor": 6,
+    "tolvas": [
+      "Mej. Roto",
+      "Surimi",
+      "Rejo",
+      "Gamba",
+      "Pimiento Rojo",
+      "Pim. Verde",
+      "Cebollita"
+    ],
+    "fila_origen": 11
+  },
+  "6243": {
+    "codigo": 6243,
+    "descripcion": "ENSALADA FANTASIA 3*1 kg",
+    "factor": 3,
+    "tolvas": [
+      "Mazorquita",
+      "Surimi",
+      "Papaya",
+      "Gamba"
+    ],
+    "fila_origen": 12
+  },
+  "6244": {
+    "codigo": 6244,
+    "descripcion": "ENSALADA FANTASIA 1*5 Kg",
+    "factor": 5,
+    "tolvas": [
+      "Mazorquita",
+      "Surimi",
+      "Papaya",
+      "Gamba/Langostino"
+    ],
+    "fila_origen": 13
+  },
+  "6247": {
+    "codigo": 6247,
+    "descripcion": "SALPICON SIN  VERD 6*1 Kg",
+    "factor": 6,
+    "tolvas": [
+      "Surimi",
+      "Mejillon",
+      "Rejo",
+      "Langostino/Gamba"
+    ],
+    "fila_origen": 14
+  },
+  "6430": {
+    "codigo": 6430,
+    "descripcion": "FRUTOS DE MAR 2*3 Kg",
+    "factor": 6,
+    "tolvas": [
+      "Stick",
+      "Gamba",
+      "Mejillon",
+      "Anilla"
+    ],
+    "fila_origen": 18
+  },
+  "6438": {
+    "codigo": 6438,
+    "descripcion": "FRUTOS DE MAR EC. 2*3 Kg",
+    "factor": 6,
+    "tolvas": [
+      "Mejillon",
+      "Anilla",
+      "Gamba",
+      "Taquitos",
+      "stick"
+    ],
+    "fila_origen": 19
+  },
+  "6440": {
+    "codigo": 6440,
+    "descripcion": "5 Kg",
+    "factor": 5,
+    "tolvas": [
+      "Chirla",
+      "cigala",
+      "Gamba",
+      "Taquito",
+      "Anilla",
+      "Mej. Entero"
+    ],
+    "fila_origen": 20
+  },
+  "6637": {
+    "codigo": 6637,
+    "descripcion": "PREPARADO DE PAELLA 6*1 Kg",
+    "factor": 6,
+    "tolvas": [
+      "Almeja",
+      "Mej. Roto",
+      "Camaron",
+      "Taquitos",
+      "Cab. Pulpo",
+      "Mej. Entero"
+    ],
+    "fila_origen": 21
+  },
+  "6639": {
+    "codigo": 6639,
+    "descripcion": "PREPARADO PAELLA 2*3 Kg",
+    "factor": 6,
+    "tolvas": [
+      "Almeja",
+      "Rejo",
+      "gamba",
+      "Taquitos",
+      "Cab de Pulpo",
+      "Mej. Entero"
+    ],
+    "fila_origen": 22
+  },
+  "6643": {
+    "codigo": 6643,
+    "descripcion": "SOPA DE MARISCO EXTRA 1*5 kg",
+    "factor": 5,
+    "tolvas": [
+      "Mejillon",
+      "Carne almeja",
+      "Gamba",
+      "Anilla",
+      "Almeja"
+    ],
+    "fila_origen": 24
+  },
+  "6645": {
+    "codigo": 6645,
+    "descripcion": "SOPA DE MARISCO EXTRA 1*6 kg",
+    "factor": 6,
+    "tolvas": [
+      "Mejillon",
+      "Carne almeja",
+      "Gamba",
+      "Anilla"
+    ],
+    "fila_origen": 25
+  },
+  "6647": {
+    "codigo": 6647,
+    "descripcion": "PAELLA MARISCO EXTRA 6*1 Kg",
+    "factor": 6,
+    "tolvas": [
+      "cigala",
+      "Chirla",
+      "Gamba grecia",
+      "Gamba/Mejillon P",
+      "Taquitos",
+      "Taquitos",
+      "Anilla",
+      "Mejillon E"
+    ],
+    "fila_origen": 26
+  },
+  "6675": {
+    "codigo": 6675,
+    "descripcion": "PREPARADO PAELLA 3*1 Kg",
+    "factor": 3,
+    "tolvas": [
+      "Almeja",
+      "Rejo",
+      "Gamba",
+      "Taquitos",
+      "Cab. Pulpo",
+      "Mejillon E"
+    ],
+    "fila_origen": 28
+  },
+  "6786": {
+    "codigo": 6786,
+    "descripcion": "PREPARADO RISOTTI  5*1 Kg",
+    "factor": 5,
+    "tolvas": [
+      "Carne de Almeja",
+      "Gamba",
+      "Mejillon",
+      "rejo",
+      "Calamar"
+    ],
+    "fila_origen": 29
+  },
+  "6800": {
+    "codigo": 6800,
+    "descripcion": "FRUTOS MAR 6 * 1 Kg",
+    "factor": 6,
+    "tolvas": [
+      "Stick",
+      "Gamba",
+      "Mejillon",
+      "Anilla"
+    ],
+    "fila_origen": 30
+  },
+  "6996": {
+    "codigo": 6996,
+    "descripcion": "PREPARATO MISTO 5*1 Kg",
+    "factor": 5,
+    "tolvas": [
+      "Almeja",
+      "Calamar",
+      "Camaron",
+      "Mej. P",
+      "Mej. P",
+      "Mej. Entero",
+      "Mej. Entero"
+    ],
+    "fila_origen": 31
+  },
+  "7003": {
+    "codigo": 7003,
+    "descripcion": "SOPA 1*6 NUDISCO",
+    "factor": 6,
+    "tolvas": [
+      "Mejillon",
+      "Gamba",
+      "Carn. Almeja",
+      "Taquitos",
+      "Anilla"
+    ],
+    "fila_origen": 32
+  },
+  "7004": {
+    "codigo": 7004,
+    "descripcion": "PREPARADO SOPA S/C 6*1 Kg",
+    "factor": 6,
+    "tolvas": [
+      "Rape",
+      "Pota",
+      "Gamba"
+    ],
+    "fila_origen": 33
+  },
+  "7007": {
+    "codigo": 7007,
+    "descripcion": "FRUTOS MAR 3*1 Kg TOPGEL",
+    "factor": 3,
+    "tolvas": [
+      "Stick",
+      "Anilla",
+      "Gamba",
+      "Mejillon"
+    ],
+    "fila_origen": 34
+  },
+  "9004": {
+    "codigo": 9004,
+    "descripcion": "USA SEAFOOD MIX 10*1 Lb",
+    "factor": 4.54,
+    "tolvas": [
+      "Mejillon Roto",
+      "Gamba",
+      "Rejo P",
+      "Calamar trocd",
+      "Mejillon P",
+      "Anilla"
+    ],
+    "fila_origen": 35
+  },
+  "9040": {
+    "codigo": 9040,
+    "descripcion": "USA SEAFOOD MIX EX. 5*2 Lb",
+    "factor": 4.54,
+    "tolvas": [
+      "Mejillon Roto",
+      "Mejillon P",
+      "Rejo P",
+      "Taquitos/Botones",
+      "Gamba",
+      "Anilla"
+    ],
+    "fila_origen": 37
+  },
+  "9041": {
+    "codigo": 9041,
+    "descripcion": "USA MARTINEZ 5*2 Lb",
+    "factor": 4.54,
+    "tolvas": [
+      "Mej. Entero",
+      "anilla",
+      "gamba",
+      "vieira"
+    ],
+    "fila_origen": 38
+  },
+  "9044": {
+    "codigo": 9044,
+    "descripcion": "USA MIX PAELLA 5*2 Lb",
+    "factor": 4.54,
+    "tolvas": [
+      "chirla",
+      "C. Almeja",
+      "Cigala",
+      "Mej. Entero",
+      "Gamba",
+      "Mejillon P/Roto",
+      "Anilla"
+    ],
+    "fila_origen": 39
+  },
+  "9045": {
+    "codigo": 9045,
+    "descripcion": "USA SEAFOOD  10*1 Lb",
+    "factor": 4.54,
+    "tolvas": [
+      "surimi",
+      "C. Pulpo/Rejo P",
+      "Gamba",
+      "Taquitos/Cal. Troc",
+      "Mejillon Roto",
+      "Mej. Roto"
+    ],
+    "fila_origen": 40
+  },
+  "9234": {
+    "codigo": 9234,
+    "descripcion": "USA SALPICON 5*2 Lb",
+    "factor": 4.54,
+    "tolvas": [
+      "Cebollia",
+      "Mejillon",
+      "Rejo",
+      "Gamba",
+      "Surimi",
+      "Pim. Verde",
+      "Pim. Rojo"
+    ],
+    "fila_origen": 41
+  },
+  "9235": {
+    "codigo": 9235,
+    "descripcion": "USA FRUTTI DE MARE 10*1 Lb",
+    "factor": 4.54,
+    "tolvas": [
+      "Stick",
+      "Gamba",
+      "Mejillon",
+      "Anilla"
+    ],
+    "fila_origen": 42
+  },
+  "93512": {
+    "codigo": 93512,
+    "descripcion": "USA REJO 10*1 Lb",
+    "factor": 4.54,
+    "tolvas": [],
+    "fila_origen": 43
+  },
+  "6261": {
+    "codigo": 6261,
+    "descripcion": "ENSALADA DE MARISCOS 5*1 Kg",
+    "factor": 5,
+    "tolvas": [],
+    "fila_origen": 44
+  },
+  "9155": {
+    "codigo": 9155,
+    "descripcion": "USA PULPO COC.TROC. 10*1 Lb",
+    "factor": 4.54,
+    "tolvas": [],
+    "fila_origen": 45
+  },
+  "93513": {
+    "codigo": 93513,
+    "descripcion": "USA REJO 10*1 Lb",
+    "factor": 4.54,
+    "tolvas": [
+      "Rejo",
+      "Rejo",
+      "Rejo",
+      "Rejo",
+      "Rejo",
+      "Rejo",
+      "Rejo"
+    ],
+    "fila_origen": 46
+  },
+  "6975": {
+    "codigo": 6975,
+    "descripcion": "PATA PULPO COC. al VACIO  20*225 Gr",
+    "factor": 4.5,
+    "tolvas": [],
+    "fila_origen": 47
+  },
+  "3512": {
+    "codigo": 3512,
+    "descripcion": "PULPO TROC. EXTRA 6*1 Kg",
+    "factor": 6,
+    "tolvas": [],
+    "fila_origen": 55
+  },
+  "3513": {
+    "codigo": 3513,
+    "descripcion": "REJO COCIDO TROC. 10*500 Gr",
+    "factor": 5,
+    "tolvas": [],
+    "fila_origen": 57
+  },
+  "4569": {
+    "codigo": 4569,
+    "descripcion": "CABEZAS PULPO  COC. 1*6 Kg",
+    "factor": 6,
+    "tolvas": [],
+    "fila_origen": 61
+  },
+  "3628": {
+    "codigo": 3628,
+    "descripcion": "REJO COCIDO 1*10 Kg",
+    "factor": 10,
+    "tolvas": [],
+    "fila_origen": 62
+  },
+  "7009": {
+    "codigo": 7009,
+    "descripcion": "SEAFOOD KANZOW 6*1 Kg",
+    "factor": 6,
+    "tolvas": [],
+    "fila_origen": 63
+  },
+  "3646": {
+    "codigo": 3646,
+    "descripcion": "REJO CASTELLAR 10*500 Kg",
+    "factor": 5,
+    "tolvas": [],
+    "fila_origen": 64
+  },
+  "6638": {
+    "codigo": 6638,
+    "descripcion": "PULPO TROCEADO  1*10 Kg",
+    "factor": 10,
+    "tolvas": [],
+    "fila_origen": 65
+  },
+  "3558": {
+    "codigo": 3558,
+    "descripcion": "REJO COCIDO 3*1 JET EXTRA",
+    "factor": 6,
+    "tolvas": [],
+    "fila_origen": 67
+  }
+}

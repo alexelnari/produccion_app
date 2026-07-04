@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.vs/
+build/
+build_*/
+dist/
+dist_*/
+*.db
+*.lock
+historial_entregas/
+Ancavico*/
