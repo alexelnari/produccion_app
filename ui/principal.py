@@ -5,8 +5,10 @@ from pathlib import Path
 import copy
 import subprocess
 import sys
+import webbrowser
 
 from db import DatabaseManager
+from updater import RELEASES_PAGE_URL, comprobar_actualizacion_en_segundo_plano
 from ui.produccion import VentanaProduccion
 from ui.detalle_dia import VentanaDetalleDia
 from ui.detalle_produccion import VentanaDetalleProduccion
@@ -330,6 +332,86 @@ class VentanaCopiasSeguridad(ctk.CTkToplevel):
             ).grid(row=0, column=1, rowspan=2, padx=(0, 14), pady=10)
 
 
+class VentanaNuevaVersion(ctk.CTkToplevel):
+    def __init__(self, master, version_nueva):
+        super().__init__(master)
+        self.title("Actualizacion disponible")
+        self.geometry("440x220")
+        self.resizable(False, False)
+        self.configure(fg_color=BG_APP)
+        self.transient(master.winfo_toplevel())
+        self.grab_set()
+        self._build_ui(version_nueva)
+        self._centrar(master)
+
+    def _centrar(self, master):
+        self.update_idletasks()
+        parent = master.winfo_toplevel()
+        x = parent.winfo_rootx() + (parent.winfo_width() // 2) - (440 // 2)
+        y = parent.winfo_rooty() + (parent.winfo_height() // 2) - (220 // 2)
+        self.geometry(f"440x220+{x}+{y}")
+
+    def _build_ui(self, version_nueva):
+        self.grid_columnconfigure(0, weight=1)
+        self.grid_rowconfigure(0, weight=1)
+
+        main = ctk.CTkFrame(
+            self,
+            fg_color=BG_FRAME,
+            corner_radius=0,
+            border_width=1,
+            border_color=COLOR_BORDE,
+        )
+        main.grid(row=0, column=0, padx=20, pady=20, sticky="nsew")
+        main.grid_columnconfigure(0, weight=1)
+        main.grid_rowconfigure(0, weight=1)
+
+        ctk.CTkLabel(
+            main,
+            text=f"Hay una nueva version disponible ({version_nueva}).\n\nDeseas descargarla?",
+            justify="center",
+            text_color="#000000",
+            font=ctk.CTkFont(size=15),
+            wraplength=360,
+        ).grid(row=0, column=0, padx=24, pady=(28, 10), sticky="nsew")
+
+        botones = ctk.CTkFrame(main, fg_color="transparent")
+        botones.grid(row=1, column=0, padx=0, pady=(0, 20), sticky="ew")
+        botones.grid_columnconfigure((0, 1), weight=1)
+
+        ctk.CTkButton(
+            botones,
+            text="Mas tarde",
+            width=150,
+            height=44,
+            corner_radius=0,
+            fg_color=BG_FRAME,
+            hover_color=BG_SEC,
+            text_color="#000000",
+            border_width=1,
+            border_color=COLOR_BORDE,
+            font=ctk.CTkFont(size=14, weight="bold"),
+            command=self.destroy,
+        ).grid(row=0, column=0, padx=(0, 6), sticky="e")
+
+        ctk.CTkButton(
+            botones,
+            text="Descargar",
+            width=150,
+            height=44,
+            corner_radius=0,
+            fg_color=BG_HEADER,
+            hover_color="#1a202c",
+            text_color="#ffffff",
+            font=ctk.CTkFont(size=14, weight="bold"),
+            command=self._descargar,
+        ).grid(row=0, column=1, padx=(6, 0), sticky="w")
+
+    def _descargar(self):
+        webbrowser.open(RELEASES_PAGE_URL)
+        self.destroy()
+
+
 class PantallaInicio(ctk.CTkFrame):
     def __init__(self, parent, app):
         super().__init__(parent, fg_color="transparent")
@@ -598,6 +680,7 @@ class App(ctk.CTk):
         self.minsize(820, 560)
         self._build_ui()
         self.after(150, self._preguntar_inicio_con_ultima_produccion)
+        self.after(300, self._comprobar_actualizaciones)
 
     def _nuevo_estado(self):
         return {
@@ -737,6 +820,17 @@ class App(ctk.CTk):
 
     def abrir_gestor_copias(self):
         ventana = VentanaCopiasSeguridad(self, self)
+        ventana.focus_set()
+
+    def _comprobar_actualizaciones(self):
+        comprobar_actualizacion_en_segundo_plano(
+            lambda version_nueva: self.after(0, self._mostrar_dialogo_nueva_version, version_nueva)
+        )
+
+    def _mostrar_dialogo_nueva_version(self, version_nueva):
+        if not self.winfo_exists():
+            return
+        ventana = VentanaNuevaVersion(self, version_nueva)
         ventana.focus_set()
 
     def abrir_programa_externo(self, ruta, nombre):
