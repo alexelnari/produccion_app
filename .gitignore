@@ -8,6 +8,8 @@ scripts/__pycache__/
 ui/__pycache__/
 *.pyc
 Ancavico 04-07-26/
+build/
+dist/
 
 # Business data / generated backups (not source)
 backups/
