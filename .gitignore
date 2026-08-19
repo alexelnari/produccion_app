@@ -1,5 +1,6 @@
 ancavico.db
 *.lock
+config.json
 
 # Build/IDE artifacts
 .vs/

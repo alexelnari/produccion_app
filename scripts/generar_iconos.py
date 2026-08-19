@@ -12,6 +12,7 @@ Ejecutar una vez desde la carpeta produccion_app/:
     python scripts/generar_iconos.py
 """
 
+import math
 import sys
 from pathlib import Path
 
@@ -309,6 +310,25 @@ def icono_editar(color):
     return img
 
 
+def icono_configuracion(color):
+    img = _lienzo()
+    d = ImageDraw.Draw(img)
+    cx, cy = TAMANO / 2, TAMANO / 2
+    r_ext = TAMANO * 0.30
+    r_dientes = TAMANO * 0.42
+    r_int = TAMANO * 0.12
+    d.ellipse([cx - r_ext, cy - r_ext, cx + r_ext, cy + r_ext], outline=color, width=GROSOR)
+    d.ellipse([cx - r_int, cy - r_int, cx + r_int, cy + r_int], outline=color, width=GROSOR)
+    for i in range(8):
+        ang = math.radians(i * 45)
+        x0 = cx + r_ext * math.cos(ang)
+        y0 = cy + r_ext * math.sin(ang)
+        x1 = cx + r_dientes * math.cos(ang)
+        y1 = cy + r_dientes * math.sin(ang)
+        d.line([x0, y0, x1, y1], fill=color, width=GROSOR)
+    return img
+
+
 ICONOS = {
     "nuevo_dia": icono_nuevo_dia,
     "abrir": icono_abrir,
@@ -318,6 +338,7 @@ ICONOS = {
     "info": icono_info,
     "etiqueta": icono_etiqueta,
     "imprimir": icono_imprimir,
+    "configuracion": icono_configuracion,
 }
 
 # Cada icono "de seccion" se genera ya en el color de su seccion
@@ -331,6 +352,7 @@ COLOR_POR_ICONO = {
     "info": "#4a5568",
     "etiqueta": "#6b46c1",
     "imprimir": "#6b46c1",
+    "configuracion": "#4a5568",
 }
 
 # Iconos de accion (botones del resto de ventanas): se generan en dos tonos

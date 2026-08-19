@@ -1,5 +1,5 @@
 import customtkinter as ctk
-from tkinter import messagebox
+from tkinter import filedialog, messagebox
 from datetime import datetime
 from pathlib import Path
 import copy
@@ -7,8 +7,10 @@ import subprocess
 import sys
 import webbrowser
 
+from app_config import cargar_config, guardar_config
 from db import DatabaseManager
 from updater import RELEASES_PAGE_URL, comprobar_actualizacion_en_segundo_plano
+from ui.admin_dialog import ask_admin_password, verificar_clave_admin
 from ui.produccion import VentanaProduccion
 from ui.detalle_dia import VentanaDetalleDia
 from ui.detalle_produccion import VentanaDetalleProduccion
@@ -37,8 +39,12 @@ from ui.theme import (
 DIAS_SEMANA = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"]
 NOMBRE_MAQUINA = "VERTICAL"
 
-RUTA_COLOS = r"C:\Program Files\Colos\Colos.exe"
-RUTA_BARTENDER = r"C:\Program Files\Seagull\BarTender.exe"
+# Valores por defecto (los mismos que antes de existir la pantalla de
+# Configuracion); si el usuario ya guardo una config.json en algun momento,
+# esos valores la sobrescriben aqui mismo al arrancar.
+_config_inicial = cargar_config()
+RUTA_COLOS = _config_inicial["ruta_colos"]
+RUTA_BARTENDER = _config_inicial["ruta_bartender"]
 
 ctk.set_appearance_mode("light")
 ctk.set_default_color_theme("blue")
@@ -412,6 +418,158 @@ class VentanaNuevaVersion(ctk.CTkToplevel):
         self.destroy()
 
 
+class VentanaConfiguracion(ctk.CTkToplevel):
+    def __init__(self, master, app):
+        super().__init__(master)
+        self.app = app
+        self.title("Configuracion")
+        self.geometry("720x420")
+        self.resizable(False, False)
+        self.configure(fg_color=BG_APP)
+        self.transient(master.winfo_toplevel())
+        self.grab_set()
+        self._build_ui()
+        self._centrar(master)
+
+    def _centrar(self, master):
+        self.update_idletasks()
+        parent = master.winfo_toplevel()
+        x = parent.winfo_rootx() + (parent.winfo_width() // 2) - (720 // 2)
+        y = parent.winfo_rooty() + (parent.winfo_height() // 2) - (420 // 2)
+        self.geometry(f"720x420+{x}+{y}")
+
+    def _build_ui(self):
+        self.grid_columnconfigure(0, weight=1)
+        self.grid_rowconfigure(1, weight=1)
+
+        header = ctk.CTkFrame(self, fg_color=BG_HEADER, corner_radius=10, height=52)
+        header.grid(row=0, column=0, padx=20, pady=(18, 10), sticky="ew")
+        header.grid_propagate(False)
+        ctk.CTkFrame(header, fg_color=TINT_GESTION["border"], height=4, corner_radius=0).place(
+            relx=0, rely=0, relwidth=1, anchor="nw"
+        )
+        ctk.CTkLabel(
+            header,
+            text="Configuracion",
+            font=ctk.CTkFont(size=17, weight="bold"),
+            text_color="#ffffff",
+        ).place(relx=0.5, rely=0.5, anchor="center")
+
+        main = ctk.CTkFrame(self, fg_color=BG_FRAME, corner_radius=12, border_width=1, border_color=COLOR_BORDE)
+        main.grid(row=1, column=0, padx=20, pady=(0, 18), sticky="nsew")
+        main.grid_columnconfigure(0, weight=1)
+
+        ctk.CTkLabel(
+            main,
+            text="Ruta ejecutable Colos",
+            font=ctk.CTkFont(size=13, weight="bold"),
+            text_color=COLOR_TEXTO,
+            anchor="w",
+        ).grid(row=0, column=0, padx=24, pady=(24, 4), sticky="ew")
+
+        fila_colos = ctk.CTkFrame(main, fg_color="transparent")
+        fila_colos.grid(row=1, column=0, padx=24, pady=(0, 18), sticky="ew")
+        fila_colos.grid_columnconfigure(0, weight=1)
+        self.entry_colos = ctk.CTkEntry(fila_colos, height=40, border_color=COLOR_BORDE)
+        self.entry_colos.insert(0, RUTA_COLOS)
+        self.entry_colos.grid(row=0, column=0, sticky="ew", padx=(0, 8))
+        ctk.CTkButton(
+            fila_colos,
+            text="Examinar",
+            width=120,
+            height=40,
+            corner_radius=8,
+            fg_color=BG_FRAME,
+            hover_color=BG_SEC,
+            text_color=COLOR_TEXTO,
+            border_width=1,
+            border_color=COLOR_BORDE,
+            font=ctk.CTkFont(size=13, weight="bold"),
+            command=lambda: self._examinar(self.entry_colos),
+        ).grid(row=0, column=1)
+
+        ctk.CTkLabel(
+            main,
+            text="Ruta ejecutable Bartender",
+            font=ctk.CTkFont(size=13, weight="bold"),
+            text_color=COLOR_TEXTO,
+            anchor="w",
+        ).grid(row=2, column=0, padx=24, pady=(0, 4), sticky="ew")
+
+        fila_bartender = ctk.CTkFrame(main, fg_color="transparent")
+        fila_bartender.grid(row=3, column=0, padx=24, pady=(0, 18), sticky="ew")
+        fila_bartender.grid_columnconfigure(0, weight=1)
+        self.entry_bartender = ctk.CTkEntry(fila_bartender, height=40, border_color=COLOR_BORDE)
+        self.entry_bartender.insert(0, RUTA_BARTENDER)
+        self.entry_bartender.grid(row=0, column=0, sticky="ew", padx=(0, 8))
+        ctk.CTkButton(
+            fila_bartender,
+            text="Examinar",
+            width=120,
+            height=40,
+            corner_radius=8,
+            fg_color=BG_FRAME,
+            hover_color=BG_SEC,
+            text_color=COLOR_TEXTO,
+            border_width=1,
+            border_color=COLOR_BORDE,
+            font=ctk.CTkFont(size=13, weight="bold"),
+            command=lambda: self._examinar(self.entry_bartender),
+        ).grid(row=0, column=1)
+
+        botones = ctk.CTkFrame(main, fg_color="transparent")
+        botones.grid(row=4, column=0, padx=24, pady=(4, 20), sticky="ew")
+        botones.grid_columnconfigure(0, weight=1)
+
+        ctk.CTkButton(
+            botones,
+            text="Cancelar",
+            width=140,
+            height=44,
+            corner_radius=8,
+            fg_color=BG_FRAME,
+            hover_color=BG_SEC,
+            text_color=COLOR_TEXTO,
+            border_width=1,
+            border_color=COLOR_BORDE,
+            font=ctk.CTkFont(size=14, weight="bold"),
+            command=self.destroy,
+        ).grid(row=0, column=0, sticky="e", padx=(0, 8))
+
+        ctk.CTkButton(
+            botones,
+            text="Guardar",
+            width=140,
+            height=44,
+            corner_radius=8,
+            fg_color=BG_HEADER,
+            hover_color="#1a202c",
+            text_color="#ffffff",
+            font=ctk.CTkFont(size=14, weight="bold"),
+            command=self._guardar,
+        ).grid(row=0, column=1, sticky="w", padx=(8, 0))
+
+    def _examinar(self, entry):
+        ruta = filedialog.askopenfilename(
+            title="Selecciona el ejecutable",
+            filetypes=[("Ejecutables", "*.exe"), ("Todos los archivos", "*.*")],
+            parent=self,
+        )
+        if ruta:
+            entry.delete(0, "end")
+            entry.insert(0, ruta)
+
+    def _guardar(self):
+        global RUTA_COLOS, RUTA_BARTENDER
+        nuevo_colos = self.entry_colos.get().strip()
+        nuevo_bartender = self.entry_bartender.get().strip()
+        guardar_config({"ruta_colos": nuevo_colos, "ruta_bartender": nuevo_bartender})
+        RUTA_COLOS = nuevo_colos
+        RUTA_BARTENDER = nuevo_bartender
+        mostrar_toast(self, "Configuracion guardada.", tipo="exito")
+        self.destroy()
+
+
 class PantallaInicio(ctk.CTkFrame):
     def __init__(self, parent, app):
         super().__init__(parent, fg_color="transparent")
@@ -524,18 +682,22 @@ class PantallaInicio(ctk.CTkFrame):
             scroll, 5, 1, "Informacion de la App",
             "info", self._mostrar_informacion_app, TINT_GESTION,
         )
-
-        self._section_title(scroll, 6, "Etiquetado")
         self._boton_tarjeta(
-            scroll, 7, 0, "Colos",
+            scroll, 6, 0, "Configuracion",
+            "configuracion", self._abrir_configuracion, TINT_GESTION, columnspan=2,
+        )
+
+        self._section_title(scroll, 7, "Etiquetado")
+        self._boton_tarjeta(
+            scroll, 8, 0, "Colos",
             "etiqueta", lambda: self.app.abrir_programa_externo(RUTA_COLOS, "Colos"), TINT_ETIQUETADO,
         )
         self._boton_tarjeta(
-            scroll, 7, 1, "Bartender",
+            scroll, 8, 1, "Bartender",
             "imprimir", lambda: self.app.abrir_programa_externo(RUTA_BARTENDER, "Bartender"), TINT_ETIQUETADO,
         )
 
-        self._small_button(scroll, 8, 0, "Salir", self.app.destroy, columnspan=2, pady=(4, 22), tint=TINT_DANGER)
+        self._small_button(scroll, 9, 0, "Salir", self.app.destroy, columnspan=2, pady=(4, 22), tint=TINT_DANGER)
 
     def _actualizar_reloj(self):
         ahora = datetime.now()
@@ -569,6 +731,20 @@ class PantallaInicio(ctk.CTkFrame):
 
     def _mostrar_informacion_app(self):
         ventana = VentanaInformacionApp(self, self.app)
+        ventana.focus_set()
+
+    def _abrir_configuracion(self):
+        clave = ask_admin_password(
+            self,
+            title="Acceso protegido",
+            prompt="Introduce la clave de administrador para acceder a la configuracion:",
+        )
+        if clave is None:
+            return
+        if not verificar_clave_admin(clave):
+            messagebox.showerror("Acceso denegado", "La clave introducida no es correcta.")
+            return
+        ventana = VentanaConfiguracion(self, self.app)
         ventana.focus_set()
 
     def _section_title(self, parent, row, text):
