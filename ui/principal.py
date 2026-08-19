@@ -3,6 +3,7 @@ from tkinter import messagebox
 from datetime import datetime
 from pathlib import Path
 import copy
+import subprocess
 import sys
 
 from db import DatabaseManager
@@ -27,11 +28,15 @@ from ui.theme import (
     TINT_PRODUCCION,
     TINT_OPERACION,
     TINT_GESTION,
+    TINT_ETIQUETADO,
     TINT_DANGER,
 )
 
 DIAS_SEMANA = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"]
 NOMBRE_MAQUINA = "VERTICAL"
+
+RUTA_COLOS = r"C:\Program Files\Colos\Colos.exe"
+RUTA_BARTENDER = r"C:\Program Files\Seagull\BarTender.exe"
 
 ctk.set_appearance_mode("light")
 ctk.set_default_color_theme("blue")
@@ -344,13 +349,11 @@ class PantallaInicio(ctk.CTkFrame):
         )
         main.grid(row=0, column=0, padx=28, pady=28, sticky="nsew")
 
-        for col in range(2):
-            main.grid_columnconfigure(col, weight=1)
-        main.grid_rowconfigure(3, weight=1)
-        main.grid_rowconfigure(5, weight=1)
+        main.grid_columnconfigure(0, weight=1)
+        main.grid_rowconfigure(2, weight=1)
 
         header = ctk.CTkFrame(main, fg_color=BG_HEADER, corner_radius=10, height=86)
-        header.grid(row=0, column=0, columnspan=2, padx=14, pady=(14, 10), sticky="ew")
+        header.grid(row=0, column=0, padx=14, pady=(14, 10), sticky="ew")
         header.grid_propagate(False)
         header.grid_columnconfigure(0, weight=1)
         header.grid_rowconfigure(0, weight=1)
@@ -388,7 +391,7 @@ class PantallaInicio(ctk.CTkFrame):
         self._actualizar_reloj()
 
         self.resumen_card = ctk.CTkFrame(main, fg_color=BG_SEC, corner_radius=8, height=38)
-        self.resumen_card.grid(row=1, column=0, columnspan=2, padx=14, pady=(0, 10), sticky="ew")
+        self.resumen_card.grid(row=1, column=0, padx=14, pady=(0, 10), sticky="ew")
         self.resumen_card.grid_propagate(False)
         self.lbl_resumen = ctk.CTkLabel(
             self.resumen_card,
@@ -399,36 +402,58 @@ class PantallaInicio(ctk.CTkFrame):
         )
         self.lbl_resumen.pack(fill="both", expand=True, padx=16)
 
-        self._section_title(main, 2, "Produccion")
+        # Contenido con scroll: con cada seccion nueva la lista de botones
+        # crece, y la ventana no siempre tiene alto suficiente para mostrarla
+        # entera (sobre todo con pantallas pequenas o varios monitores). En
+        # vez de fijar un alto de ventana cada vez mas grande, el bloque de
+        # secciones/botones se desplaza dentro de este contenedor y el
+        # encabezado + resumen quedan siempre visibles arriba.
+        scroll = ctk.CTkScrollableFrame(main, fg_color="transparent")
+        scroll.grid(row=2, column=0, padx=0, pady=0, sticky="nsew")
+        for col in range(2):
+            scroll.grid_columnconfigure(col, weight=1)
+
+        self._section_title(scroll, 0, "Produccion")
         self._boton_tarjeta(
-            main, 3, 0, "Nuevo dia de Produccion",
+            scroll, 1, 0, "Nuevo dia de Produccion",
             "nuevo_dia", self.app.iniciar_nuevo_dia, TINT_PRODUCCION,
         )
         self._boton_tarjeta(
-            main, 3, 1, "Abrir Produccion Existente",
+            scroll, 1, 1, "Abrir Produccion Existente",
             "abrir", self.app.abrir_ultima_produccion, TINT_PRODUCCION,
         )
 
-        self._section_title(main, 4, "Operacion")
+        self._section_title(scroll, 2, "Operacion")
         self._boton_tarjeta(
-            main, 5, 0, "Tolvas",
+            scroll, 3, 0, "Tolvas",
             "tolvas", lambda: self.app.show_view("tolvas"), TINT_OPERACION,
         )
         self._boton_tarjeta(
-            main, 5, 1, "Buscar",
+            scroll, 3, 1, "Buscar",
             "buscar", lambda: self.app.show_view("buscar"), TINT_OPERACION,
         )
 
-        self._section_title(main, 6, "Gestion")
+        self._section_title(scroll, 4, "Gestion")
         self._boton_tarjeta(
-            main, 7, 0, "Estadisticas / Historico",
+            scroll, 5, 0, "Estadisticas / Historico",
             "historico", lambda: self.app.show_view("historico"), TINT_GESTION,
         )
         self._boton_tarjeta(
-            main, 7, 1, "Informacion de la App",
+            scroll, 5, 1, "Informacion de la App",
             "info", self._mostrar_informacion_app, TINT_GESTION,
         )
-        self._small_button(main, 8, 0, "Salir", self.app.destroy, columnspan=2, pady=(4, 22), tint=TINT_DANGER)
+
+        self._section_title(scroll, 6, "Etiquetado")
+        self._boton_tarjeta(
+            scroll, 7, 0, "Colos",
+            "etiqueta", lambda: self.app.abrir_programa_externo(RUTA_COLOS, "Colos"), TINT_ETIQUETADO,
+        )
+        self._boton_tarjeta(
+            scroll, 7, 1, "Bartender",
+            "imprimir", lambda: self.app.abrir_programa_externo(RUTA_BARTENDER, "Bartender"), TINT_ETIQUETADO,
+        )
+
+        self._small_button(scroll, 8, 0, "Salir", self.app.destroy, columnspan=2, pady=(4, 22), tint=TINT_DANGER)
 
     def _actualizar_reloj(self):
         ahora = datetime.now()
@@ -713,6 +738,22 @@ class App(ctk.CTk):
     def abrir_gestor_copias(self):
         ventana = VentanaCopiasSeguridad(self, self)
         ventana.focus_set()
+
+    def abrir_programa_externo(self, ruta, nombre):
+        if not Path(ruta).exists():
+            messagebox.showerror(
+                f"No se encontro {nombre}",
+                f"No se encontro {nombre} en la ruta esperada:\n\n{ruta}\n\n"
+                "Comprueba que el programa este instalado correctamente.",
+            )
+            return
+        try:
+            subprocess.Popen([ruta])
+        except OSError as error:
+            messagebox.showerror(
+                f"Error al abrir {nombre}",
+                f"No se pudo abrir {nombre}.\n\n{error}",
+            )
 
     def show_view(self, name):
         if name != "hoja_produccion":

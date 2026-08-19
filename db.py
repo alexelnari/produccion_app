@@ -528,6 +528,52 @@ class DatabaseManager:
             row = conn.execute(query, (tipo,)).fetchone()
         return row["etiqueta"] if row else ""
 
+    def get_ultimos_caja_lote_por_producto(self, codigo_producto: str) -> dict:
+        """Caja y Lote de la ultima linea guardada (en cualquier produccion)
+        para un codigo de Genero, para autocompletar esos campos cuando se
+        repite un producto ya usado antes. Mismo criterio de "mas reciente"
+        que get_latest_etiqueta_por_tipo.
+        """
+        codigo_producto = (codigo_producto or "").strip()
+        if not codigo_producto:
+            return {"caja": "", "lote": ""}
+
+        query = """
+            SELECT lp.caja, lp.lote
+            FROM lineas_produccion lp
+            JOIN producciones p ON p.id = lp.produccion_id
+            WHERE lp.producto = ?
+            ORDER BY p.updated_at DESC, lp.orden DESC
+            LIMIT 1
+        """
+        with self._connect() as conn:
+            row = conn.execute(query, (codigo_producto,)).fetchone()
+        if not row:
+            return {"caja": "", "lote": ""}
+        return {"caja": row["caja"] or "", "lote": row["lote"] or ""}
+
+    def get_ultima_observacion_por_producto(self, codigo_producto: str) -> str:
+        """Observaciones de la ultima linea guardada (en cualquier produccion)
+        para un codigo de Genero, para autocompletar ese campo en Revision
+        Final cuando se repite un producto ya usado antes. Mismo criterio de
+        "mas reciente" que get_ultimos_caja_lote_por_producto.
+        """
+        codigo_producto = (codigo_producto or "").strip()
+        if not codigo_producto:
+            return ""
+
+        query = """
+            SELECT lp.observaciones
+            FROM lineas_produccion lp
+            JOIN producciones p ON p.id = lp.produccion_id
+            WHERE lp.producto = ?
+            ORDER BY p.updated_at DESC, lp.orden DESC
+            LIMIT 1
+        """
+        with self._connect() as conn:
+            row = conn.execute(query, (codigo_producto,)).fetchone()
+        return (row["observaciones"] or "") if row else ""
+
     def get_production_summary(self, produccion_id: int) -> Optional[dict]:
         with self._connect() as conn:
             row = conn.execute(

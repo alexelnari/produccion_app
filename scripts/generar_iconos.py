@@ -277,6 +277,23 @@ def icono_mostrar(color):
     return img
 
 
+def icono_etiqueta(color):
+    img = _lienzo()
+    d = ImageDraw.Draw(img)
+    d.polygon(
+        [
+            (TAMANO * 0.14, TAMANO * 0.14), (TAMANO * 0.58, TAMANO * 0.14),
+            (TAMANO * 0.88, TAMANO * 0.44), (TAMANO * 0.44, TAMANO * 0.88),
+            (TAMANO * 0.14, TAMANO * 0.58),
+        ],
+        outline=color, width=GROSOR,
+    )
+    r = TAMANO * 0.07
+    cx, cy = TAMANO * 0.34, TAMANO * 0.34
+    d.ellipse([cx - r, cy - r, cx + r, cy + r], outline=color, width=GROSOR)
+    return img
+
+
 def icono_editar(color):
     img = _lienzo()
     d = ImageDraw.Draw(img)
@@ -299,6 +316,8 @@ ICONOS = {
     "buscar": icono_buscar,
     "historico": icono_historico,
     "info": icono_info,
+    "etiqueta": icono_etiqueta,
+    "imprimir": icono_imprimir,
 }
 
 # Cada icono "de seccion" se genera ya en el color de su seccion
@@ -310,6 +329,8 @@ COLOR_POR_ICONO = {
     "buscar": "#276749",
     "historico": "#4a5568",
     "info": "#4a5568",
+    "etiqueta": "#6b46c1",
+    "imprimir": "#6b46c1",
 }
 
 # Iconos de accion (botones del resto de ventanas): se generan en dos tonos

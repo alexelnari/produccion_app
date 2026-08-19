@@ -47,6 +47,7 @@ BG_SEC = BG_LABEL
 TINT_PRODUCCION = {"bg": "#ebf8ff", "hover": "#d6ecfa", "border": "#bee3f8", "texto": "#2b6cb0", "icono": "#2b6cb0"}
 TINT_OPERACION = {"bg": "#f0fff4", "hover": "#dcfce7", "border": "#c6f6d5", "texto": "#276749", "icono": "#276749"}
 TINT_GESTION = {"bg": BG_LABEL, "hover": COLOR_BORDE, "border": COLOR_BORDE, "texto": COLOR_SEC, "icono": "#4a5568"}
+TINT_ETIQUETADO = {"bg": "#faf5ff", "hover": "#e9d8fd", "border": "#d6bcfa", "texto": "#6b46c1", "icono": "#6b46c1"}
 
 # Version suave de COLOR_DANGER para el boton "Salir" de la pantalla de
 # inicio: mismo lenguaje pastel que las tarjetas de arriba (para que encaje

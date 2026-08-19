@@ -140,9 +140,11 @@ class VentanaProduccion(ctk.CTkFrame):
         self.lbl_ultima_etiqueta_bobina = self._hint_label(form_card, 4)
         self.txt_etiqueta_palet = self._entry(form_card, "Etiqueta de Palet:", 5, width=ANCHO_CAMPO)
         self.lbl_ultima_etiqueta_palet = self._hint_label(form_card, 5)
-        self.txt_caja = self._entry(form_card, "Caja:", 6, width=ANCHO_CAMPO, solo_numero=True)
-        self.txt_lote = self._entry(form_card, "Lote:", 7, width=ANCHO_CAMPO, solo_numero=True)
-        self.txt_producto = self._entry(form_card, "Genero:", 8, width=ANCHO_CAMPO)
+        self.txt_producto = self._entry(form_card, "Genero:", 6, width=ANCHO_CAMPO)
+        self.txt_caja = self._entry(form_card, "Caja:", 7, width=ANCHO_CAMPO, solo_numero=True)
+        self.lbl_ultima_caja = self._hint_label(form_card, 7)
+        self.txt_lote = self._entry(form_card, "Lote:", 8, width=ANCHO_CAMPO, solo_numero=True)
+        self.lbl_ultimo_lote = self._hint_label(form_card, 8)
         self.txt_cantidad = self._entry(form_card, "Cantidad de Cajas:", 9, width=ANCHO_CAMPO, solo_numero=True, permitir_decimal=True)
         self.txt_fabricacion = self._entry(form_card, "Articulo fabricado:", 10, width=240, readonly=True)
         self.txt_peso = self._entry(form_card, "Peso Calculado Kg:", 11, width=ANCHO_CAMPO, readonly=True)
@@ -476,6 +478,11 @@ class VentanaProduccion(ctk.CTkFrame):
             widget.bind("<Return>", self._focus_next_widget)
         self.txt_producto.bind("<KeyRelease>", self._actualizar_preview_producto)
         self.txt_producto.bind("<FocusOut>", self._actualizar_preview_producto)
+        # FocusOut cubre tanto Tab (mueve el foco de forma nativa) como Enter
+        # (el binding de arriba mueve el foco con focus_set(), lo que dispara
+        # FocusOut igual que Tab), asi que no hace falta un binding aparte
+        # para cada tecla.
+        self.txt_producto.bind("<FocusOut>", self._autocompletar_caja_lote_desde_historial, add="+")
         self.txt_cantidad.bind("<KeyRelease>", self._actualizar_preview_producto)
         self.txt_cantidad.bind("<FocusOut>", self._actualizar_preview_producto)
         self.txt_cantidad.bind("<Return>", self._guardar_desde_enter)
@@ -627,6 +634,35 @@ class VentanaProduccion(ctk.CTkFrame):
 
         peso = round(cantidad * info.get("factor", 0), 2) if cantidad > 0 and info.get("factor", 0) > 0 else ""
         self._set_entry_value(self.txt_peso, peso)
+
+    def _autocompletar_caja_lote_desde_historial(self, _event=None):
+        """Al confirmar el codigo de Genero (Enter o Tab), busca en el
+        historial de producciones guardadas la ultima Caja y Lote usados
+        para ese codigo y los rellena, sin pisar valores que el usuario ya
+        haya escrito a mano en esos campos.
+        """
+        codigo = self.txt_producto.get().strip()
+        if not codigo:
+            self.lbl_ultima_caja.configure(text="")
+            self.lbl_ultimo_lote.configure(text="")
+            return
+
+        ultimos = self.app.db.get_ultimos_caja_lote_por_producto(codigo)
+        ultima_caja = ultimos.get("caja", "")
+        ultimo_lote = ultimos.get("lote", "")
+
+        self.lbl_ultima_caja.configure(text=f"Ultima usada: {ultima_caja}" if ultima_caja else "")
+        self.lbl_ultimo_lote.configure(text=f"Ultimo usado: {ultimo_lote}" if ultimo_lote else "")
+
+        cambios = False
+        if ultima_caja and not self.txt_caja.get().strip():
+            self._set_texto_forzado(self.txt_caja, ultima_caja)
+            cambios = True
+        if ultimo_lote and not self.txt_lote.get().strip():
+            self._set_texto_forzado(self.txt_lote, ultimo_lote)
+            cambios = True
+        if cambios:
+            self._marcar_cambios_pendientes()
 
     def _actualizar_resumen(self):
         total = len(self.app.get_lineas_produccion())

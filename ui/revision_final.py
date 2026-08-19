@@ -1,5 +1,6 @@
 import customtkinter as ctk
 
+from productos import buscar_producto
 from ui.toast import mostrar_toast
 from ui.icons import cargar_icono
 from ui.theme import BG_APP, BG_FRAME, BG_HEADER, BG_LABEL, COLOR_BORDE, COLOR_TEXTO, COLOR_SEC, TINT_PRODUCCION
@@ -14,6 +15,8 @@ class VentanaRevisionFinal(ctk.CTkFrame):
         self.txt_incidencias = None
         self.listado = None
         self.lbl_totales = None
+        self.lbl_ultima_caja = None
+        self.lbl_ultimo_lote = None
         self._build_ui()
 
     def _build_ui(self):
@@ -90,14 +93,16 @@ class VentanaRevisionFinal(ctk.CTkFrame):
             ("tipo", "Tipo:"),
             ("bobina", "Bobina:"),
             ("etiqueta", "Etiqueta:"),
+            ("producto", "Genero:"),
             ("caja", "Caja:"),
             ("lote", "Lote:"),
-            ("producto", "Genero:"),
             ("observaciones", "Observaciones:"),
             ("cantidad", "Cantidad:"),
             ("peso", "Peso Kg:"),
         ]
+        fila_por_clave = {}
         for fila, (clave, texto) in enumerate(campos, start=1):
+            fila_por_clave[clave] = fila
             ctk.CTkLabel(
                 right,
                 text=texto,
@@ -109,6 +114,23 @@ class VentanaRevisionFinal(ctk.CTkFrame):
             entry = ctk.CTkEntry(right, width=220, height=30, border_color=COLOR_BORDE, font=ctk.CTkFont(size=13))
             entry.grid(row=fila, column=1, padx=(0, 16), pady=4, sticky="ew")
             self.entries[clave] = entry
+
+        self.lbl_ultima_caja = ctk.CTkLabel(
+            right, text="", font=ctk.CTkFont(size=11), text_color=COLOR_SEC, anchor="w",
+        )
+        self.lbl_ultima_caja.grid(row=fila_por_clave["caja"], column=2, padx=(0, 16), pady=4, sticky="w")
+
+        self.lbl_ultimo_lote = ctk.CTkLabel(
+            right, text="", font=ctk.CTkFont(size=11), text_color=COLOR_SEC, anchor="w",
+        )
+        self.lbl_ultimo_lote.grid(row=fila_por_clave["lote"], column=2, padx=(0, 16), pady=4, sticky="w")
+
+        self.entries["producto"].bind("<Return>", self._autocompletar_caja_lote_desde_historial)
+        self.entries["producto"].bind("<FocusOut>", self._autocompletar_caja_lote_desde_historial)
+        self.entries["cantidad"].bind("<KeyRelease>", self._actualizar_peso_desde_cantidad)
+        self.entries["cantidad"].bind("<FocusOut>", self._actualizar_peso_desde_cantidad)
+        self.entries["producto"].bind("<KeyRelease>", self._actualizar_peso_desde_cantidad, add="+")
+        self.entries["producto"].bind("<FocusOut>", self._actualizar_peso_desde_cantidad, add="+")
 
         ctk.CTkLabel(
             right,
@@ -214,6 +236,65 @@ class VentanaRevisionFinal(ctk.CTkFrame):
         for clave, entry in self.entries.items():
             linea[clave] = entry.get().strip()
         return True
+
+    def _autocompletar_caja_lote_desde_historial(self, _event=None):
+        """Al confirmar el codigo de Genero (Enter o Tab), busca en el
+        historial de producciones guardadas la ultima Caja, Lote y
+        Observaciones usados para ese codigo y los rellena, sin pisar
+        valores que ya tenga la linea (misma logica que en la ventana de
+        Produccion).
+        """
+        codigo = self.entries["producto"].get().strip()
+        if not codigo:
+            self.lbl_ultima_caja.configure(text="")
+            self.lbl_ultimo_lote.configure(text="")
+            return
+
+        ultimos = self.app.db.get_ultimos_caja_lote_por_producto(codigo)
+        ultima_caja = ultimos.get("caja", "")
+        ultimo_lote = ultimos.get("lote", "")
+
+        self.lbl_ultima_caja.configure(text=f"Ultima usada: {ultima_caja}" if ultima_caja else "")
+        self.lbl_ultimo_lote.configure(text=f"Ultimo usado: {ultimo_lote}" if ultimo_lote else "")
+
+        entry_caja = self.entries["caja"]
+        entry_lote = self.entries["lote"]
+        if ultima_caja and not entry_caja.get().strip():
+            entry_caja.delete(0, "end")
+            entry_caja.insert(0, ultima_caja)
+        if ultimo_lote and not entry_lote.get().strip():
+            entry_lote.delete(0, "end")
+            entry_lote.insert(0, ultimo_lote)
+
+        ultima_observacion = self.app.db.get_ultima_observacion_por_producto(codigo)
+        entry_observaciones = self.entries["observaciones"]
+        if ultima_observacion and not entry_observaciones.get().strip():
+            entry_observaciones.delete(0, "end")
+            entry_observaciones.insert(0, ultima_observacion)
+
+    def _actualizar_peso_desde_cantidad(self, _event=None):
+        """Recalcula Peso Kg = Cantidad x factor del producto (productos.py)
+        cada vez que cambia la Cantidad de Cajas o el codigo de Genero.
+        """
+        codigo = self.entries["producto"].get().strip()
+        cantidad_txt = self.entries["cantidad"].get().strip()
+        try:
+            cantidad = float(cantidad_txt.replace(",", ".")) if cantidad_txt else 0
+        except ValueError:
+            cantidad = 0
+
+        factor = 0.0
+        producto_info = buscar_producto(codigo) if codigo else None
+        if producto_info:
+            try:
+                factor = float(str(producto_info.get("factor", 0)).replace(",", ".") or 0)
+            except ValueError:
+                factor = 0.0
+
+        entry_peso = self.entries["peso"]
+        entry_peso.delete(0, "end")
+        if cantidad > 0 and factor > 0:
+            entry_peso.insert(0, str(round(cantidad * factor, 2)))
 
     def _render_lineas(self):
         for child in self.listado.winfo_children():
