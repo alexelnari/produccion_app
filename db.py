@@ -528,6 +528,23 @@ class DatabaseManager:
             row = conn.execute(query, (tipo,)).fetchone()
         return row["etiqueta"] if row else ""
 
+    def get_latest_pedido(self) -> str:
+        """Ultimo numero de orden usado, el mas reciente entre todas las
+        producciones. Mismo criterio de "mas reciente" que
+        get_latest_etiqueta_por_tipo.
+        """
+        query = """
+            SELECT lp.pedido
+            FROM lineas_produccion lp
+            JOIN producciones p ON p.id = lp.produccion_id
+            WHERE TRIM(COALESCE(lp.pedido, '')) <> ''
+            ORDER BY p.updated_at DESC, lp.orden DESC
+            LIMIT 1
+        """
+        with self._connect() as conn:
+            row = conn.execute(query).fetchone()
+        return row["pedido"] if row else ""
+
     def get_ultimos_caja_lote_por_producto(self, codigo_producto: str) -> dict:
         """Caja y Lote de la ultima linea guardada (en cualquier produccion)
         para un codigo de Genero, para autocompletar esos campos cuando se

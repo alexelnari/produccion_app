@@ -4,6 +4,7 @@ from datetime import datetime
 
 from productos import buscar_producto
 from tolvas_data import buscar_tolvas
+from ui.etiquetas_devolucion import abrir_etiquetas_devolucion
 from ui.toast import mostrar_toast
 from ui.icons import cargar_icono
 from ui.theme import (
@@ -20,6 +21,7 @@ from ui.theme import (
     COLOR_WARNING_HOVER,
     COLOR_INFO,
     COLOR_INFO_HOVER,
+    TINT_ETIQUETADO,
     TINT_PRODUCCION,
 )
 
@@ -121,7 +123,10 @@ class VentanaProduccion(ctk.CTkFrame):
         )
         lbl_sec.grid(row=0, column=0, columnspan=2, padx=14, pady=(10, 6), sticky="ew", ipady=4)
 
-        self.txt_pedido = self._entry(form_card, "Orden:", 1, width=ANCHO_CAMPO, solo_numero=True)
+        # Sin solo_numero: las ordenes vienen con prefijo de letras (OT000013),
+        # que ademas se pasa a mayusculas segun se escribe.
+        self.txt_pedido = self._entry(form_card, "Orden:", 1, width=ANCHO_CAMPO, mayusculas=True)
+        self.lbl_ultima_orden = self._hint_label(form_card, 1)
         self.cbo_tipo = self._combo(
             form_card, "Tipo de Etiqueta:", 2, ["PALET", "BOBINA"],
             width=ANCHO_CAMPO, minimo=ANCHO_CAMPO, command=self._on_tipo_change,
@@ -196,12 +201,20 @@ class VentanaProduccion(ctk.CTkFrame):
             "fg_color": COLOR_INFO, "hover_color": COLOR_INFO_HOVER,
             "text_color": "#ffffff", "border_color": COLOR_INFO, "border_width": 1,
         }
+        # Mismo morado que "Colos" y "Bartender" en la pantalla de inicio:
+        # todo lo que genera etiquetas usa esa familia de color.
+        ESTILO_ETIQUETA = {
+            "fg_color": TINT_ETIQUETADO["bg"], "hover_color": TINT_ETIQUETADO["hover"],
+            "text_color": TINT_ETIQUETADO["texto"], "border_color": TINT_ETIQUETADO["border"],
+            "border_width": 1,
+        }
 
         for txt, cmd, estilo, icono in [
             ("Detalle del Dia", lambda: self.app.show_view("detalle_dia"), ESTILO_DATOS, None),
             ("Detalle de Produccion", lambda: self.app.show_view("detalle_produccion"), ESTILO_DATOS, None),
             ("Revision Final", lambda: self.app.show_view("revision_final"), ESTILO_ACCION, None),
             ("Vista Previa Hoja", self.imprimir_hoja, ESTILO_PREVIA, None),
+            ("ETIQUETA DEVOLUCION", self.abrir_etiquetas_devolucion, ESTILO_ETIQUETA, "etiqueta"),
             ("Nueva linea similar", self.nueva_linea_similar, ESTILO_ACCION, None),
             ("Duplicar ultima", self.duplicar_ultima_linea, ESTILO_ACCION, None),
         ]:
@@ -359,7 +372,7 @@ class VentanaProduccion(ctk.CTkFrame):
         lbl.grid(row=fila, column=0, padx=(16, 6), pady=5, sticky="w")
         return lbl
 
-    def _entry(self, parent, texto, fila, width=160, readonly=False, solo_numero=False, permitir_decimal=False):
+    def _entry(self, parent, texto, fila, width=160, readonly=False, solo_numero=False, permitir_decimal=False, mayusculas=False):
         self._label(parent, texto, fila)
         entry = ctk.CTkEntry(
             parent,
@@ -374,7 +387,27 @@ class VentanaProduccion(ctk.CTkFrame):
             entry.configure(state="disabled")
         elif solo_numero:
             self._configurar_validacion_numerica(entry, permitir_decimal)
+        if mayusculas and not readonly:
+            self._configurar_mayusculas(entry)
         return entry
+
+    def _configurar_mayusculas(self, entry):
+        """Pasa a mayusculas lo que se escribe en el campo.
+
+        Via StringVar y no con un bind de teclado para que valga tambien
+        cuando el texto entra por codigo (_set_texto_forzado al cargar una
+        linea guardada) o por un pegado con el raton.
+        """
+        variable = ctk.StringVar(value=entry.get())
+
+        def al_escribir(*_):
+            texto = variable.get()
+            if texto != texto.upper():
+                variable.set(texto.upper())
+
+        variable.trace_add("write", al_escribir)
+        entry.configure(textvariable=variable)
+        return variable
 
     def _hint_label(self, parent, fila):
         lbl = ctk.CTkLabel(
@@ -675,8 +708,12 @@ class VentanaProduccion(ctk.CTkFrame):
         self._actualizar_ultimas_etiquetas()
 
     def _actualizar_ultimas_etiquetas(self):
+        ultima_orden = self.app.db.get_latest_pedido()
         ultima_bobina = self.app.db.get_latest_etiqueta_por_tipo("BOBINA")
         ultima_palet = self.app.db.get_latest_etiqueta_por_tipo("PALET")
+        self.lbl_ultima_orden.configure(
+            text=f"Ultima usada: {ultima_orden}" if ultima_orden else ""
+        )
         self.lbl_ultima_etiqueta_bobina.configure(
             text=f"Ultima usada: {ultima_bobina}" if ultima_bobina else ""
         )
@@ -998,3 +1035,10 @@ class VentanaProduccion(ctk.CTkFrame):
             mostrar_toast(self, "Primero debes guardar al menos una linea.", tipo="advertencia")
             return
         self.app.show_view("hoja_produccion")
+
+    def abrir_etiquetas_devolucion(self):
+        lineas = self.app.get_lineas_produccion()
+        if not lineas:
+            mostrar_toast(self, "Primero debes guardar al menos una linea.", tipo="advertencia")
+            return
+        abrir_etiquetas_devolucion(self, lineas)
